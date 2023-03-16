@@ -1,4 +1,7 @@
 <?php
+
+use PSpell\Config;
+
 class Nationalite {
 	/**
 	 * numero du Nationalite
@@ -52,20 +55,25 @@ class Nationalite {
 		return $this;
 	}
 
-    /**
-     * Get the value of numContinent
-     */
-    public function getNumContinent()
+	/**
+	 * renvoie l'objet continent associé
+	 *
+	 * @return Continent
+	 */
+    public function getNumContinent() : Continent
     {
-        return $this->numContinent;
+        return Continent::findById($this->numContinent);
     }
 
-    /**
-     * Set the value of numContinent
-     */
-    public function setNumContinent($numContinent): self
+	/**
+	 * ecrit le num Continent
+	 *
+	 * @param Continent $continent
+	 * @return self
+	 */
+    public function setNumContinent(Continent $continent): self
     {
-        $this->numContinent = $numContinent;
+        $this->numContinent = $continent->getNum();
 
         return $this;
     }
@@ -109,8 +117,10 @@ class Nationalite {
 	 */
 	public static function add(Nationalite $nationalite) :int
 	{
-		$req=MonPdo::getInstance()->prepare("insert into nationalite(libelle) values(:libelle)");
+		$req=MonPdo::getInstance()->prepare("insert into nationalite (libelle,numContinent) values(:libelle, :numContinent)");
 		$req->bindParam(':libelle', $nationalite->getLibelle());
+		$cv=$nationalite->getNum();
+        $req->bindParam(':numContinent', $cv);
 		 $nb=$req->execute();
 		return $nb;
 	}
@@ -123,9 +133,11 @@ class Nationalite {
 	 */
 	public static function update(Nationalite $nationalite) :int
 	{
-		$req=MonPdo::getInstance()->prepare("update nationalite set libelle= :libelle where num= :id");
+		$req=MonPdo::getInstance()->prepare("update nationalite set libelle= :libelle, numContinent= :numContinent where num= :id");
 		$req->bindParam(':id', $nationalite->getNum());
 		$req->bindParam(':libelle', $nationalite->getLibelle());
+		$cv=$nationalite->getNum();
+		$req->bindParam(':numContinent', $cv);
 		$nb=$req->execute();
 		return $nb;
 

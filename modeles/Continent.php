@@ -100,7 +100,8 @@ class Continent {
 	public static function update(Continent $continent) :int
 	{
 		$req=MonPdo::getInstance()->prepare("update continent set libelle= :libelle where num= :id");
-		$req->bindParam(':id', $continent->getNum());
+		$num= $continent->getNum();
+		$req->bindParam(':id', $num);
 		$req->bindParam(':libelle', $continent->getLibelle());
 		$nb=$req->execute();
 		return $nb;
@@ -119,6 +120,16 @@ class Continent {
 		$req->bindParam(':id', $continent->getNum());
 		 $nb=$req->execute();
 		return $nb;
+	}
+
+	/**
+	 * Set numero du continent
+	 */
+	public function setNum(int $num): self
+	{
+		$this->num = $num;
+
+		return $this;
 	}
 }
 
