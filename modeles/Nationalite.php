@@ -83,9 +83,17 @@ class Nationalite {
 	 *
 	 * @return Nationalite[] tableau d'objet nationalite
 	 */
-	public static function findAll() :array
+	public static function findAll(?string $libelle="", ?string $continent="" ) :array
 	{
-		$req=MonPdo::getInstance()->prepare("Select n.num as numero, n.libelle as 'libNation', c.libelle as 'libContinent' from nationalite n, continent c where n.numContinent=c.num");
+		$texteReq="Select n.num as 'numero', n.libelle as 'libNation', c.libelle as 'libContinent' from nationalite n, continent c where n.numContinent=c.num";
+		if( $libelle != "") { 
+			$texteReq =" and n.libelle like '%" . $libelle . "%'";
+		}
+		if( $continent != "Tous") { 
+			$texteReq.= " and c.num =" .$continent;
+		}
+		$texteReq.=" order by n.libelle";
+		$req=MonPdo::getInstance()->prepare($texteReq);
 		$req->setFetchMode(PDO::FETCH_OBJ);
 		$req->execute();
 		$lesResultats=$req->fetchAll();
