@@ -41,16 +41,14 @@
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gestion des genres</a>
         <div class="dropdown-menu" aria-labelledby="dropdown01">
-          <a class="dropdown-item" href="#">Liste des genres</a>
-          <a class="dropdown-item" href="#">Ajouter un genre</a>
+          <a class="dropdown-item" href="index.php?uc=genre&action=list">Liste des genres</a>
+          <a class="dropdown-item" href="index.php?uc=genre&action=add">Ajouter un genre</a>
         </div>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-male"></i> Gestion des auteurs</a>
         <div class="dropdown-menu" aria-labelledby="dropdown01">
-          <a class="dropdown-item" href="#">Liste des auteurs</a>
-          <a class="dropdown-item" href="#">Ajouter un auteur</a>
-          <a class="dropdown-item" href="#">rechercher un auteur</a>
+          <a class="dropdown-item" href="index.php?uc=auteur&action=list">Liste des auteurs</a>
         </div>
       </li>
       <li class="nav-item dropdown">

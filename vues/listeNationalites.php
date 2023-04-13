@@ -9,15 +9,15 @@
     <form id="formRecherche" action="index.php?uc=nationalite&action=list" method="post" class="border border-primary rounded p-3 mt-3 mb-3">
     <div class="row">
             <div class="col">
-                <input type="text" class='form-control' id='libelle' onInput="document.getElementById('formRecherche').submit()" placehoder='Saisir le libellé' name='libelle' value="<?php echo $libelle; ?>">
+                <input type="text" class='form-control' id='libelle' onInput="document.getElementById('formRecherche').submit()" placeholder='Saisir le libellé' name='libelle' value="<?php echo $libelle; ?>">
             </div>
             <div class="col">
                 <select name="continent" class="form-control" onChange="document.getElementById('formRecherche').submit()">
                         <?php 
                         echo "<option value='Tous'>Tous les continents</option>";
-                        foreach($lesNationalites as $nationalite){
-                            $selection=$nationalite->num == $nationaliteSel ? 'selected' : '';
-                            echo "<option value='".$nationalite->num."' ".$selection>$nationalite->libelle."</option>";
+                        foreach($lesContinents as $continent){
+                            $selection=$continent->getNum() == intval($continentSel) ? 'selected' : '';
+                            echo "<option value='".$continent->getNum()."' ".$selection.">".$continent->getLibelle()."</option>";
                         }
                         ?>
                 </select>
@@ -46,8 +46,8 @@
         echo "<td class='col-md-5'>".$nationalite->libNation."</td>";
         echo "<td class='col-md-3'>".$nationalite->libContinent."</td>";
         echo "<td class='col-md-2'>
-            <a href='formNationalite.php?action=Modifier&num=".$nationalite->numero."' class='btn btn-primary'><i class='fas fa-pen'></i></a>
-            <a href='#modalSuppression' data-toggle='modal' data-message='Voulez vous supprimer cette nationalité ?' data-suppression='index.php?uc=naionalite&action=delete&num=".$nationalite->numero."' class='btn btn-danger'><i class='far fa-trash-alt'></i></a>
+            <a href='index.php?uc=nationalite&action=update&num=$nationalite->numero' class='btn btn-primary'><i class='fas fa-pen'></i></a>
+            <a href='#modalSuppression' data-toggle='modal' data-message='Voulez vous supprimer cette nationalité ?' data-suppression='index.php?uc=nationalite&action=delete&num=".$nationalite->numero."' class='btn btn-danger'><i class='far fa-trash-alt'></i></a>
         </td>";
         echo "</tr>";
     }
